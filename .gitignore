@@ -1,0 +1,9 @@
+node_modules
+out
+uploads
+typings
+<<<<<<< HEAD
+client/node_modules
+client/dist
+=======
+>>>>>>> 8f287d52ebb8aa043e56396b9c5be2480f641d7f

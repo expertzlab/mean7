@@ -1,0 +1,48 @@
+<div class="container" >
+  <div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+  <form>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input [(ngModel)]="user.name" class="form-control" type="text" name="name">
+    </div>
+    <div class="form-group">
+      <label for="name">Password:</label>
+      <input [(ngModel)]="user.password" class="form-control" type="text" name="password">
+    </div>
+    <div class="form-group">
+      <label for="name">Proffession:</label>
+      <input [(ngModel)]="user.profession" class="form-control" type="text" name="profession">
+    </div>
+    <div class="form-group">
+      <label for="name">Id:</label>
+      <input [(ngModel)]="user.id" class="form-control" type="text" name="id">
+    </div>
+    <div>
+      <input class="btn btn-primary" type="button" (click)='onSubmit()' value="Submit">  
+    </div>
+  </form>
+</div> 
+  <div class="col-sm-3">
+  </div>
+</div>
+<div class="row">
+  
+  <div class="col-sm-12" style="padding-top: 10px;">
+    <div>
+      <div class="card text-white bg-primary mb-3" style="max-width: 18rem;" *ngFor="let uitem of result.users">
+        <div class="card-body" style="padding-top:10px; display: inline; ">
+        ID: {{uitem.id}} <br />
+        <a title="click to edit" style="cursor: pointer;color: darkorange" (click)="userEdit(uitem.id)">Name: {{uitem.name}}</a> <br />
+        Profession: {{uitem.profession}}
+        <a (click)="deleteUser(uitem.id)">
+          <img style="width: 20px; height:20px;" src="../../assets/delete.png" alt="">
+        </a>  
+      </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</div>
