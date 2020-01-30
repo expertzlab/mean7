@@ -8,9 +8,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class RegistrationComponent implements OnInit {
 
-  user = new User()
-  result: any = {users:[]}
-
+  user = new User();
+  result: any = {users: []};
+  message = null;
+  messageStyle = '';
   constructor(private _http: HttpClient) { }
 
   ngOnInit() {
@@ -25,6 +26,14 @@ export class RegistrationComponent implements OnInit {
               .subscribe((resp) => {
                  this.result = resp
                  console.log('user:', this.result)
+                 this.message = null
+                 if(this.result._id){
+                   this.message = "successfully saved with name:"+ this.result.username
+                   this.messageStyle = 'alert alert-success'
+                  } else {
+                   this.message = "save failed. Please retry after some time"
+                   this.messageStyle = 'alert alert-danger'
+                  }
               })
   }
 
@@ -34,6 +43,10 @@ export class RegistrationComponent implements OnInit {
             this.user = this.result.users[i]
         }
    }
+  }
+
+  reset(){
+    this.message = null
   }
 
   deleteUser(uid){

@@ -13,6 +13,7 @@ export class UserDao extends MongooseDaoBase{
             profession:{type:String},
             date_created: {type: Date, default: Date.now},
             id: {type: Number, defualt:0},
+            age:{type: Number},
             active: {type: Boolean, default: false}
         })
         this.AccountModel = mongoose.model ('account',this.AccountSchema)
@@ -22,6 +23,10 @@ export class UserDao extends MongooseDaoBase{
            let accountModel = new this.AccountModel(user)
            let result = await accountModel.save()
            return result
+    }
+
+    async loadAllUsers(){
+       return await this.AccountModel.find({})
     }
 }
 
