@@ -13,16 +13,16 @@ export class UserDao extends MongooseDaoBase{
             profession:{type:String},
             date_created: {type: Date, default: Date.now},
             id: {type: Number, defualt:0},
-            age:{type: Number},
+            age:{type: Number, min:[18, 'Adults only'], max:45},
             active: {type: Boolean, default: false}
         })
         this.AccountModel = mongoose.model ('account',this.AccountSchema)
     }
     
-   async insertUser(user){
+   async insertUser(user, cb){
            let accountModel = new this.AccountModel(user)
-           let result = await accountModel.save()
-           return result
+           await accountModel.save(cb)
+           return null
     }
 
     async loadAllUsers(){

@@ -4,7 +4,7 @@
   <div class="col-sm-6">
   <form>
       <div *ngIf="message" class="form-group">
-        <div [ngClass]="messageStyle">{{message}}</div>
+        <div [ngClass]="messageStyle">{{message.success}}</div>
       </div>
     <div class="form-group">
       <label for="name">Name:</label>
@@ -23,6 +23,11 @@
       <input [(ngModel)]="user.id" class="form-control" type="text" name="id">
     </div>
     <div class="form-group">
+      
+        <div *ngIf="message.errors" class="form-group">
+            <div [ngClass]="messageStyle">{{message.errors.age.message}}</div>
+        </div>
+       
       <label for="name">Age:</label>
       <input [(ngModel)]="user.age" class="form-control" type="text" name="age">
     </div>
@@ -40,7 +45,7 @@
 <div class="row">
   
   <div class="col-sm-12" style="padding-top: 10px;">
-    <div>
+    <div *ngIf="result">
       <div class="card text-white bg-primary mb-3" style="max-width: 18rem;" *ngFor="let uitem of result.users">
         <div class="card-body" style="padding-top:10px; display: inline; ">
         ID: {{uitem.id}} <br />

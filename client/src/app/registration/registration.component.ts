@@ -10,7 +10,7 @@ export class RegistrationComponent implements OnInit {
 
   user = new User();
   result: any = {users: []};
-  message = null;
+  message = {errors: {age:0}};
   messageStyle = '';
   constructor(private _http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(){
-    
+    console.log('User:', this.user)
     const options = {
       headers: new HttpHeaders( {'Content-Type' : 'application/json'})
     }
@@ -26,14 +26,17 @@ export class RegistrationComponent implements OnInit {
               .subscribe((resp) => {
                  this.result = resp
                  console.log('user:', this.result)
-                 this.message = null
-                 if(this.result._id){
-                   this.message = "successfully saved with name:"+ this.result.username
+                 
+                 if(this.result != null && !this.result.errors){
+                   this.message = this.result
+                   this.message.success = "saved successfully"
                    this.messageStyle = 'alert alert-success'
-                  } else {
-                   this.message = "save failed. Please retry after some time"
+                  } else if(this.result != null) {
+                    console.log('save failed')
+                   this.message = this.result
+                   this.message.success = "Save failed"
                    this.messageStyle = 'alert alert-danger'
-                  }
+                  } 
               })
   }
 
