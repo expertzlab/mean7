@@ -10,7 +10,7 @@ export class RegistrationComponent implements OnInit {
 
   user = new User();
   result: any = {users: []};
-  message = {errors: {age:0}};
+  message = {errors: {age: {}, username: {}},  success: ''};
   messageStyle = '';
   constructor(private _http: HttpClient) { }
 
@@ -29,6 +29,7 @@ export class RegistrationComponent implements OnInit {
                  
                  if(this.result != null && !this.result.errors){
                    this.message = this.result
+                   this.message.errors = {age: null, username: null}
                    this.message.success = "saved successfully"
                    this.messageStyle = 'alert alert-success'
                   } else if(this.result != null) {

@@ -7,6 +7,9 @@
         <div [ngClass]="messageStyle">{{message.success}}</div>
       </div>
     <div class="form-group">
+        <div *ngIf="message.errors.username" class="form-group">
+            <div [ngClass]="messageStyle">{{message.errors.username.message}}</div>
+        </div>
       <label for="name">Name:</label>
       <input [(ngModel)]="user.username" class="form-control" type="text" name="username">
     </div>
@@ -24,7 +27,7 @@
     </div>
     <div class="form-group">
       
-        <div *ngIf="message.errors" class="form-group">
+        <div *ngIf="message.errors.age" class="form-group">
             <div [ngClass]="messageStyle">{{message.errors.age.message}}</div>
         </div>
        
