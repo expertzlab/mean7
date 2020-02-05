@@ -8,7 +8,7 @@ export class UserDao extends MongooseDaoBase{
     constructor(){
         super();
         this.AccountSchema = new MongooseSchema({
-            username: {type:String},
+            username: {type:String, match:/[a-zA-Z]/},
             password:{type:String},
             profession:{type:String},
             date_created: {type: Date, default: Date.now},
