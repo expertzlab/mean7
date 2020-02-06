@@ -3,6 +3,12 @@ var mongoose = require('mongoose')
 var MongooseSchema = mongoose.Schema
 export class UserDao extends MongooseDaoBase{
 
+    static dao: UserDao = new UserDao()
+
+    static getUserDaoObject(){
+        return this.dao
+    }
+
     AccountSchema
     AccountModel
     constructor(){
@@ -27,6 +33,17 @@ export class UserDao extends MongooseDaoBase{
 
     async loadAllUsers(){
        return await this.AccountModel.find({})
+    }
+
+    async findUser(username, password){
+        let obj = {username:'', password:''}
+        obj.username = username
+        obj.password = password
+        return await this.AccountModel.findOne(obj)
+    }
+
+    async closeConnection(){
+        //this.mongooseConnection.close()
     }
 }
 

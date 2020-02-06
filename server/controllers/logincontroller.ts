@@ -5,7 +5,7 @@ const passport = require('passport')
 var router:Router = Router()
 
 
-router.post('/rest/user/login',json(),
+router.post('/login',json(),
 passport.authenticate('local',{failureRedirect:'/error'}),
 function(req, resp){
     console.log('Authentication Success!')

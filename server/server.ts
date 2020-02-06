@@ -2,6 +2,7 @@ import express = require("express");
 import path = require('path')
 import { json } from "body-parser";
 import { welcomecontroller, usercontroller, logincontroller } from "./controllers";
+import { UserDao } from "./daos/userdao";
 var app = express()
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
@@ -17,14 +18,20 @@ app.use(session(sessCookieConf))
 
 app.use(passport.initialize())
 app.use(passport.session())
+let udao = UserDao.getUserDaoObject()
 
 passport.use(new LocalStrategy(function(username, password, done){
     console.log('Authentication Started:')
-    if("james" === username && "abc123" === password)
-        done(null, {'user.id':1})
-    else
-        done(null,false)
-
+    udao.findUser(username, password).then(function(user){
+        console.log('Local Strategy:',user)
+        if(user == null)
+            return done("User or Password Does Not exist", false)
+        if(user.id){
+            return done(null, {'user.id':user.id})
+        } else {
+            return done(null,false)
+        }
+    })  
 }))
 
 passport.serializeUser(function(user, cb){
@@ -41,17 +48,7 @@ app.use('/rest/user/',usercontroller)
 app.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
 app.get('/error', (req, res) => res.send("error TT logging in"));
 
-//app.use('/rest/user',logincontroller)
-
-app.post('/rest/user/login',json(),
-passport.authenticate('local',{failureRedirect:'/error'}),
-function(req, resp){
-    console.log('Authentication Success!')
-    console.log('req-body:',req.body)
-    //resp.redirect('/success?username=jack');
-    resp.redirect('/success?username='+req.body.username)
-
-})
+app.use('/rest/user',logincontroller)
 
 console.log('static path:', path.join(__dirname,'../client/dist'))
 app.use('/',express.static(path.join(__dirname,'../client/dist/client')))

@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
 export class MongooseDaoBase{
     
-    mongooseConnection = null
     mongoUrl = 'mongodb://localhost:27017/crm'
+    mongooseConnection = mongoose.connect(this.mongoUrl)
 
     constructor(){
         if(this.mongooseConnection == null){
@@ -13,4 +13,5 @@ export class MongooseDaoBase{
         }
 
     }
+
 }
