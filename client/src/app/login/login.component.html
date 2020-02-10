@@ -28,6 +28,10 @@
     <div>
       <input class="btn btn-primary" type="button" (click)='save()' value="Submit">  
     </div>
+    <div>
+       <a [routerLink]="['/home']" routerLinkActive="router-link-active" >HOME</a> |
+       <a [routerLink]="['/login']" routerLinkActive="router-link-active" >LOGIN</a>
+    </div>
 
   </form>
 </div> 

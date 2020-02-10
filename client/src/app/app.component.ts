@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import {HttpClient} from '@angular/common/http'
 })
 export class AppComponent {
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private _router: Router){
 
   }
 
@@ -22,5 +23,10 @@ export class AppComponent {
       this.message = data
      })
 
+     if(localStorage.loginStatus === "true"){
+      this._router.navigate(['/home'])
+     } else {
+      this._router.navigate(['/login'])
+     }
   }
 }
