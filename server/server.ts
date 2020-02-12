@@ -83,7 +83,7 @@ passport.serializeUser(function(user, cb){
 passport.deserializeUser(function(user, cb){
     console.log('deserialize called')
     console.log('parms object in de-serialize:', id)
-    cb(null,{'userid':user.id})
+    cb(null,{})
 })
 
 app.use('/rest',welcomecontroller)
