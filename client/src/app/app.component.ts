@@ -19,10 +19,6 @@ export class AppComponent {
 
   ngOnInit(){
 
-     this.http.get('/rest/welcome/'+this.user).subscribe((data)=>{
-      this.message = data
-     })
-
      if(localStorage.loginStatus === "true"){
       this._router.navigate(['/home'])
      } else {

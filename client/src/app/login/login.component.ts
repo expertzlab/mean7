@@ -25,8 +25,14 @@ export class LoginComponent implements OnInit {
     console.log('user:', this.user)
     this._http.post('/rest/user/login', this.user)
     .subscribe({
-      next(result){
+      next(result:{token:''}){
+        //alert("Login Result:"+JSON.stringify (result))
+        console.log('identified authentication success')
         localStorage.loginStatus = true
+        if( result.token ){
+          localStorage.token = result.token
+        }
+        
         self.location.href = 'http://localhost:8080/'
       },
       error(err){

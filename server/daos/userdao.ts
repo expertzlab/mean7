@@ -42,6 +42,11 @@ export class UserDao extends MongooseDaoBase{
         return await this.AccountModel.findOne(obj)
     }
 
+    async findUserById(usid){
+        let obj = {id:usid}
+        return await this.AccountModel.findOne(obj)
+    }
+
     async closeConnection(){
         //this.mongooseConnection.close()
     }

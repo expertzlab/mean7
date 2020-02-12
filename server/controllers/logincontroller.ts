@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { json } from "body-parser";
 const passport = require('passport')
-
+const jwt = require('jsonwebtoken')
 var router:Router = Router()
 
 
@@ -10,8 +10,14 @@ passport.authenticate('local',{failureRedirect:'/error'}),
 function(req, resp){
     console.log('Authentication Success!')
     console.log('req-body:',req.body)
-    //resp.redirect('/success?username=jack');
-    resp.redirect('/success?username='+req.body.username)
+    if(req.isAuthenticated){
+        console.log('logincontroller: creating jwt')
+        let token = jwt.sign({'userid':req.params.uid},'mykey')
+        resp.send('{"meesage":"Welcome to Home","token":"'+token+'"}')
+  
+    } else {
+        resp.send('{"message":"error"}')
+    }
 
 })
 
